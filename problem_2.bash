@@ -7,27 +7,29 @@ grep "GNV" ./flights.May2017-Apr2018.csv | awk -F, '{print $13  $16}' | sort | g
 #question 2: Fi
 
 
-#question 3: 
 
-# select all data from column 3 (ORIGIN) and cloumn 6 (DEST), concatnate both list sort for unique codes.
+#question 3:  select all data from column 3 (ORIGIN) and cloumn 6 (DEST), concatnate both list sort for unique codes.
 
 uniq_airport_codes ()	{
 
-	awk -F, '{print $3}' ./flights.May2017-Apr2018.csv > OriginList.txt
-	awk -F, '{print $7}' ./flights.May2017-Apr2018.csv > DestList.txt
-	cat OriginList.txt DestList.txt | sort -u 
+	awk -F, '{print $3}' ./flights.May2017-Apr2018.csv | sort -u > OriginList.txt
+	awk -F, '{print $7}' ./flights.May2017-Apr2018.csv | sort -u > DestList.txt
+	cat OriginList.txt DestList.txt | sort -u
  
 }
-
-
 uniq_airport_codes
 
 
-# question 4: 
+# question 4: find all FL in columns 5 (ORIGIN_CITY_NAME) and columns 9 (DEST_CITY_NAME) print the City name (column 4 and 8) sort for unique cities.
 
 airports_in_florida () {
 	
-	grep "FL"   
+	awk -F, '{if ($5 ~ /FL/) {print $4"\n"}}' ./flights.May2017-Apr2018.csv | awk -F, '{if ($9 ~ /FL/) {print $8"\n"}}' ./flights.May2017-Apr2018.csv | sort -u
+
+}
+airports_in_florida
+
+
 
 
 
