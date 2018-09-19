@@ -4,8 +4,72 @@
 
 grep "GNV" ./flights.May2017-Apr2018.csv | awk -F, '{print $13  $16}' | sort | grep -E "0.001.00|1.000.00|1.001.00" -wc
 
-#question 2: Fi
+#question 2: Prints flight destination, whether its arrival was delayed, and whether it was due to weather
+## Data to Temporary Output File GNVTmp.txt
 
+awk -F, '{if ($3 ~ /GNV/) {print $7,$16,$24}}' flights.May2017-Apr2018.csv > GNVTmp.txt
+
+#Generation of table data
+
+ATLCount=$(grep -wc ATL GNVTmp.txt)
+echo $ATLCount
+
+ATLDelay=$(grep ATL GNVTmp.txt | grep -c 1.00)
+
+echo $ATLDelay
+
+ATLWeather=$(awk -F'[ ]' '{
+	 if ($3 ~ /[1-9]+[0-9]\.../ && $1 ~ /ATL/)
+	{
+		print $3
+	}
+	 else if ($3 ~ /[1-9]\.../ && $1 ~ /ATL/)
+	{
+		print $3 
+	} 
+	fi
+}' GNVTmp.txt | wc -l )
+
+echo $ATLWeather
+
+CLTCount=$(grep -wc CLT GNVTmp.txt)
+
+echo $CLTCount
+
+CLTDelay=$(grep CLT GNVTmp.txt | grep -c 1.00)
+CLTWeather=$(awk -F'[ ]' '{
+	 if ($3 ~ /[1-9]+[0-9]\.../ && $1 ~ /CLT/)
+	{
+		print $3
+	}
+	 else if ($3 ~ /[1-9]\.../ && $1 ~ /CLT/)
+	{
+		print $3 
+	} 
+	fi
+}' GNVTmp.txt | wc -l )
+
+
+MIACount=$(grep -wc MIA GNVTmp.txt)
+MIADelay=$(grep MIA GNVTmp.txt | grep -c 1.00)
+MIAWeather=$(awk -F'[ ]' '{
+	if ($3 ~ /[1-9]+[0-9]\.../ && $1 ~ /MIA/)
+{
+                print $3
+        }
+         else if ($3 ~ /[1-9]\.../ && $1 ~ /MIA/)
+        {
+                print $3
+        }
+        fi
+}' GNVTmp.txt | wc -l )
+
+#Creation of .txt file with proper header and categories (tab-delimited)
+printf "Destination\tTotal Flights\tTotal Flights Delayed >15min\tTotal flights delayed due to weather\nATL\t$ATLCount\t$ATLDelay\t$ATLWeather\nCLT\t$CLTCount\t$CLTDelay\t$CLTWeather\nMIA\t$MIACount\t$MIADelay\t$MIAWeather" > FlightTable.txt
+
+
+#Deletion of Temporary File
+rm GNVTmp.txt
 
 
 #question 3:  select all data from column 3 (ORIGIN) and cloumn 6 (DEST), concatnate both list sort for unique codes.
