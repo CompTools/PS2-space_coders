@@ -72,7 +72,7 @@ printf "Destination\tTotal Flights\tTotal Flights Delayed >15min\tTotal flights 
 rm GNVTmp.txt
 
 
-#question 3:  select all data from column 3 (ORIGIN) and cloumn 6 (DEST), concatnate both list sort for unique codes.
+#question 3:  using function- select all data from column 3 (ORIGIN) and cloumn 6 (DEST), concatnate both list sort for unique codes.
 
 uniq_airport_codes ()	{
 
@@ -84,7 +84,7 @@ uniq_airport_codes ()	{
 uniq_airport_codes
 
 
-# question 4: find all FL in columns 5 (ORIGIN_CITY_NAME) and columns 9 (DEST_CITY_NAME) print the City name (column 4 and 8) sort for unique cities.
+# question 4: using function- find all FL in columns 5 (ORIGIN_CITY_NAME) and columns 9 (DEST_CITY_NAME) print the City name (column 4 and 8) sort for unique cities.
 
 airports_in_florida () {
 	
@@ -94,6 +94,18 @@ airports_in_florida () {
 airports_in_florida
 
 
+#Bonus question: user input
+#list main file as a variable
+FILE=./flights.May2017-Apr2018.csv
+#user input: grep airport code from main file and count how many lines found,if more then 0, then select cloumns DEP_DEL15 and ARR_DEL15, sort, count all flights that arrive to GNV 15 mins late or depart from GNV 15 mins late or both. If code not found: echo no such code.
+read -p "Enter airport code > " airport_code
+file_info="$(grep "$airport_code" $FILE -wc)"
+        if [[ "$file_info" =~ [1-9] ]]; then
+        grep "$airport_code" $FILE | awk -F, '{print $13  $16}' | sort | grep -E "0.001.00|1.000.00|1.001.00" -wc
+else
+        echo "No such code '$airport_code'" >&2
+        exit 1
+fi
 
 
 
