@@ -41,20 +41,25 @@ You should start in Canvas, creating your group and then create the same group i
 For questions, 1, 3 and 4, I will mostly be looking for the right answer.
 
 **Your score on 1,3,4 (I'll fill this in when I grade):**
+**Sorry, I thought I had committed my grading changes, but I'm not seeing them on any of the branches, so maybe not...
 
+1,3 and 4 all look good: 2,3,2 pts.
 
 For question 2, you will receive points for:
 
 Rubric item | Points | Your score
 ------------|--------|-----------
-Using github| 1 point |
-Having at least one commit from each member of the team | 2 points |
-Using meaningful commit messages | 2 points |
-Using functions correctly | 2 points |
-Using comments in code | 2 points
-Using spacing to make code readable | 2 points |
-Getting the correct answer | 2 points |
+Using github| 1 point |**1**
+Having at least one commit from each member of the team | 2 points |**2**
+Using meaningful commit messages | 2 points |**2**
+Using functions correctly | 2 points |**2**
+Using comments in code | 2 points|**2**
+Using spacing to make code readable | 2 points |**2**
+Getting the correct answer | 2 points |**2**
 
 **Extra credit:**
+5pts
 
 **Total points:**
+
+25pts, great job!
